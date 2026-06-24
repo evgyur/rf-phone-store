@@ -347,11 +347,7 @@ function homePage() {
             <p>Подскажем модель под бюджет, камеру, память, игры, работу или подарок.</p>
           </div>
           <div class="showcase-stage">
-            <div class="phone-fan">
-              <img class="fan-phone" src="${products[1].image}" alt="Redmi 14C">
-              <img class="fan-phone" src="${products[9].image}" alt="iPhone 16 Pro Max">
-              <img class="fan-phone" src="${products[7].image}" alt="Galaxy S25 Ultra">
-            </div>
+            <img class="hero-family-image" src="./assets/hero-family-phone.png" alt="Семья выбирает новый смартфон">
             <div class="showcase-note">
               <h3>Все для покупки</h3>
               <p>Сравните характеристики, уточните наличие и оформите заказ удобным способом.</p>
