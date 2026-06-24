@@ -304,7 +304,7 @@ p {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(21, 24, 29, 0) 44%, rgba(21, 24, 29, 0.88) 86%),
+    linear-gradient(180deg, rgba(21, 24, 29, 0) 50%, rgba(21, 24, 29, 0.86) 82%),
     linear-gradient(90deg, rgba(21, 24, 29, 0.16), rgba(21, 24, 29, 0));
   content: "";
 }
@@ -321,7 +321,7 @@ p {
 .showcase-note {
   position: absolute;
   left: 22px;
-  bottom: 22px;
+  bottom: 88px;
   max-width: 320px;
   color: #fff;
   z-index: 1;
