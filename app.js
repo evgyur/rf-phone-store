@@ -271,7 +271,7 @@ function rub(value) {
 
 function card(product) {
   return `
-    <article class="product-card" style="--card-bg:${product.bg}">
+    <article class="product-card" style="--card-bg:${product.bg}; --accent:${product.color}">
       <a class="product-media" href="#product-${product.id}" aria-label="${product.name}">
         <span class="badge">${product.badge}</span>
         <img src="${product.image}" alt="${product.name}">
@@ -293,8 +293,8 @@ function card(product) {
         </ul>
         <p>${product.short}</p>
         <div class="product-actions">
-          <a class="primary-button" href="#product-${product.id}">Купить</a>
-          <a class="ghost-button" href="#compare">Сравнить</a>
+          <a class="primary-button" href="#bag">Купить</a>
+          <a class="text-link" href="#compare">Сравнить</a>
         </div>
       </div>
     </article>`;
@@ -323,17 +323,21 @@ function filteredProducts() {
 
 function homePage() {
   const top = products.slice(0, 4).map(card).join("");
+  const strip = products
+    .slice(0, 7)
+    .map((product) => `<a href="#product-${product.id}"><img src="${product.image}" alt=""><span>${product.brand}</span></a>`)
+    .join("");
   return `
     <section class="page">
+      <nav class="product-strip" aria-label="Популярные категории">${strip}</nav>
       <div class="hero">
         <div class="hero-copy">
           <span class="eyebrow">Популярные смартфоны</span>
-          <h1>Подберите смартфон без лишнего поиска</h1>
-          <p class="lead">Собрали востребованные модели iPhone, Samsung, Xiaomi и Realme: от доступных аппаратов для связи до флагманов с лучшими камерами.</p>
+          <h1>Выберите смартфон, который подходит именно вам.</h1>
+          <p class="lead">В каталоге собраны востребованные модели iPhone, Samsung, Xiaomi и Realme: от доступных смартфонов для связи до флагманов с лучшими камерами.</p>
           <div class="hero-actions">
-            <a class="primary-button" href="#catalog">Смотреть каталог</a>
+            <a class="primary-button" href="#catalog">Купить</a>
             <a class="secondary-button" href="#compare">Сравнить модели</a>
-            <a class="ghost-button" href="#contacts">Оформить заявку</a>
           </div>
           <div class="metric-grid">
             <div class="metric"><strong>10</strong><span>популярных моделей</span></div>
@@ -342,16 +346,12 @@ function homePage() {
           </div>
         </div>
         <aside class="hero-showcase">
-          <div class="panel">
-            <strong>Поможем выбрать</strong>
-            <p>Подскажем модель под бюджет, камеру, память, игры, работу или подарок.</p>
-          </div>
           <div class="showcase-stage">
             <img class="hero-family-image" src="./assets/hero-family-phone.png" alt="Семья выбирает новый смартфон">
-            <div class="showcase-note">
-              <h3>Все для покупки</h3>
-              <p>Сравните характеристики, уточните наличие и оформите заказ удобным способом.</p>
-            </div>
+          </div>
+          <div class="panel hero-spec-panel">
+            <strong>Поможем выбрать</strong>
+            <p>Сравните камеру, память, экран, батарею и цену перед оформлением заказа.</p>
           </div>
         </aside>
       </div>
@@ -423,6 +423,11 @@ function productPage(id) {
   const images = [product.image];
   return `
     <section class="page">
+      <nav class="product-crumbs" aria-label="Навигация по товару">
+        <a href="#catalog">Каталог</a>
+        <span>/</span>
+        <span>${product.name}</span>
+      </nav>
       <div class="product-layout">
         <div>
           <div class="gallery-main" style="--gallery-bg:${product.bg}">
@@ -432,7 +437,7 @@ function productPage(id) {
             ${images.map((src, index) => `<button class="thumb ${index === active ? "is-active" : ""}" data-thumb="${index}" aria-label="Фото ${index + 1}"><img src="${src}" alt=""></button>`).join("")}
           </div>
         </div>
-        <div class="panel">
+        <div class="buy-panel">
           <span class="eyebrow">${product.segment}</span>
           <h1>${product.name}</h1>
           <p class="lead">${product.short}</p>
@@ -441,10 +446,29 @@ function productPage(id) {
             <span class="old-price">${rub(product.oldPrice)}</span>
             <span class="stock">В наличии</span>
           </div>
+          <div class="choice-block">
+            <h3>Цвет</h3>
+            <div class="swatch-row" aria-label="Цвет">
+              <span class="swatch is-active" style="--swatch:${product.color}"></span>
+              <span class="swatch" style="--swatch:#f4f4f4"></span>
+              <span class="swatch" style="--swatch:#1d1d1f"></span>
+            </div>
+          </div>
+          <div class="choice-block">
+            <h3>Память</h3>
+            <div class="storage-row">
+              <button class="storage-option is-active">${product.memory}</button>
+              <button class="storage-option">Больше памяти</button>
+            </div>
+          </div>
+          <div class="delivery-choice">
+            <strong>Получение</strong>
+            <span>Курьером от 1 дня или самовывоз из пункта выдачи.</span>
+          </div>
           <div class="product-actions">
-            <a class="primary-button" href="#contacts">Купить в 1 клик</a>
-            <a class="secondary-button" href="#compare">Добавить к сравнению</a>
-            <a class="ghost-button" href="#catalog">Назад в каталог</a>
+            <a class="primary-button wide" href="#bag">Добавить в корзину</a>
+            <a class="secondary-button wide" href="#checkout-delivery">Купить сейчас</a>
+            <a class="text-link" href="#compare">Сравнить с другими моделями</a>
           </div>
           <div class="details-grid">
             <div class="panel">
@@ -524,6 +548,232 @@ function comparePage() {
         <div class="benefit"><h3>Много памяти</h3><p>Redmi 14C 8/256 или Redmi Note 13 8/256.</p></div>
         <div class="benefit"><h3>Samsung</h3><p>Galaxy A16 для повседневных задач, A56 для тех, кому важны экран и камера.</p></div>
         <div class="benefit"><h3>Премиум</h3><p>iPhone 16 Pro Max или Galaxy S25 Ultra.</p></div>
+      </div>
+    </section>`;
+}
+
+function flowSteps(active) {
+  const steps = [
+    ["account", "Аккаунт", "#account"],
+    ["bag", "Корзина", "#bag"],
+    ["delivery", "Доставка", "#checkout-delivery"],
+    ["payment", "Оплата", "#checkout-payment"],
+    ["review", "Проверка", "#checkout-review"],
+  ];
+  return `<nav class="checkout-steps" aria-label="Шаги оформления">${steps
+    .map(
+      ([id, label, href], index) =>
+        `<a class="${id === active ? "is-active" : ""}" href="${href}"><span>0${index + 1}</span>${label}</a>`,
+    )
+    .join("")}</nav>`;
+}
+
+function orderSummary() {
+  const cart = [products[1], products[8]];
+  const subtotal = cart.reduce((sum, product) => sum + product.price, 0);
+  const delivery = 490;
+  return `
+    <aside class="order-summary">
+      <h3>Ваш заказ</h3>
+      ${cart
+        .map(
+          (product) => `
+          <div class="summary-item">
+            <img src="${product.image}" alt="">
+            <div>
+              <strong>${product.name}</strong>
+              <span>${product.memory}</span>
+            </div>
+            <b>${rub(product.price)}</b>
+          </div>`,
+        )
+        .join("")}
+      <div class="summary-row"><span>Товары</span><strong>${rub(subtotal)}</strong></div>
+      <div class="summary-row"><span>Доставка</span><strong>${rub(delivery)}</strong></div>
+      <div class="summary-row total"><span>Итого</span><strong>${rub(subtotal + delivery)}</strong></div>
+      <p>Цена и наличие подтверждаются перед оплатой. Для учебного прототипа платеж не проводится.</p>
+    </aside>`;
+}
+
+function accountPage() {
+  return `
+    <section class="page">
+      ${flowSteps("account")}
+      <div class="checkout-layout">
+        <div class="checkout-main">
+          <span class="eyebrow">Аккаунт</span>
+          <h1>Вход или регистрация</h1>
+          <p class="lead">Сохраним контакты, адрес доставки и историю заказа, чтобы следующий шаг оформления был быстрее.</p>
+          <div class="checkout-card">
+            <h3>Контактные данные</h3>
+            <form id="accountForm" class="flow-form">
+              <input name="email" type="email" placeholder="email@example.ru" required>
+              <input name="phone" placeholder="+7 ___ ___-__-__" required>
+              <div class="option-list">
+                <label><input type="radio" name="auth" checked> Создать новый аккаунт</label>
+                <label><input type="radio" name="auth"> Войти по телефону</label>
+              </div>
+              <label class="checkbox-line">
+                <input type="checkbox" required>
+                <span>Согласен с офертой и обработкой персональных данных.</span>
+              </label>
+              <a class="primary-button" href="#bag">Продолжить в корзину</a>
+              <p id="accountResult" class="muted"></p>
+            </form>
+          </div>
+        </div>
+        ${orderSummary()}
+      </div>
+    </section>`;
+}
+
+function bagPage() {
+  return `
+    <section class="page">
+      ${flowSteps("bag")}
+      <div class="checkout-layout">
+        <div class="checkout-main">
+          <span class="eyebrow">Корзина</span>
+          <h1>Проверьте состав заказа</h1>
+          <p class="lead">Проверьте модели, комплектацию и стоимость. Наличие и итоговую цену подтвердим перед оплатой.</p>
+          <div class="checkout-card">
+            <div class="bag-row">
+              <img src="${products[1].image}" alt="">
+              <div><h3>${products[1].name}</h3><p>8/256 ГБ, популярная комплектация</p></div>
+              <strong>${rub(products[1].price)}</strong>
+            </div>
+            <div class="bag-row">
+              <img src="${products[8].image}" alt="">
+              <div><h3>${products[8].name}</h3><p>128 ГБ, iOS, в наличии</p></div>
+              <strong>${rub(products[8].price)}</strong>
+            </div>
+            <div class="promo-line">
+              <input placeholder="Промокод или номер предложения">
+              <a class="ghost-button" href="#bag">Применить</a>
+            </div>
+            <a class="primary-button" href="#checkout-delivery">Перейти к доставке</a>
+          </div>
+        </div>
+        ${orderSummary()}
+      </div>
+    </section>`;
+}
+
+function deliveryPage() {
+  return `
+    <section class="page">
+      ${flowSteps("delivery")}
+      <div class="checkout-layout">
+        <div class="checkout-main">
+          <span class="eyebrow">Доставка</span>
+          <h1>Адрес или самовывоз</h1>
+          <p class="lead">Выберите удобный способ получения, укажите адрес и контакт для курьера или пункта выдачи.</p>
+          <div class="checkout-card">
+            <h3>Способ получения</h3>
+            <div class="option-list">
+              <label><input type="radio" name="delivery-mode" checked> Курьером до двери</label>
+              <label><input type="radio" name="delivery-mode"> Самовывоз из пункта выдачи</label>
+              <label><input type="radio" name="delivery-mode"> Экспресс-доставка по Москве</label>
+            </div>
+            <form class="flow-form">
+              <div class="form-row">
+                <input placeholder="Имя" required>
+                <input placeholder="Фамилия" required>
+              </div>
+              <input placeholder="Город" value="Москва" required>
+              <input placeholder="Улица, дом, квартира" required>
+              <div class="form-row">
+                <input placeholder="Индекс">
+                <input placeholder="Телефон для курьера" required>
+              </div>
+            </form>
+          </div>
+          <div class="checkout-card">
+            <h3>Варианты доставки</h3>
+            <div class="option-list">
+              <label><input type="radio" name="speed" checked> Стандартная — завтра, 490 ₽</label>
+              <label><input type="radio" name="speed"> Экспресс — сегодня, 990 ₽</label>
+              <label><input type="radio" name="speed"> Самовывоз — бесплатно</label>
+            </div>
+            <a class="primary-button" href="#checkout-payment">Сохранить доставку</a>
+          </div>
+        </div>
+        ${orderSummary()}
+      </div>
+    </section>`;
+}
+
+function paymentPage() {
+  return `
+    <section class="page">
+      ${flowSteps("payment")}
+      <div class="checkout-layout">
+        <div class="checkout-main">
+          <span class="eyebrow">Оплата</span>
+          <h1>Выберите способ оплаты</h1>
+          <p class="lead">Оплатите заказ онлайн, через СБП или при получении после подтверждения наличия.</p>
+          <div class="checkout-card">
+            <h3>Метод оплаты</h3>
+            <div class="option-list">
+              <label><input type="radio" name="payment" checked> Банковская карта онлайн</label>
+              <label><input type="radio" name="payment"> СБП по QR-коду</label>
+              <label><input type="radio" name="payment"> Картой или наличными при получении</label>
+              <label><input type="radio" name="payment"> Рассрочка после подтверждения</label>
+            </div>
+            <form class="flow-form">
+              <input placeholder="Номер карты">
+              <div class="form-row">
+                <input placeholder="ММ / ГГ">
+                <input placeholder="CVV">
+              </div>
+              <p class="field-error">Пример состояния ошибки: проверьте номер карты и срок действия.</p>
+            </form>
+            <a class="primary-button" href="#checkout-review">Перейти к проверке</a>
+          </div>
+        </div>
+        ${orderSummary()}
+      </div>
+    </section>`;
+}
+
+function reviewPage() {
+  return `
+    <section class="page">
+      ${flowSteps("review")}
+      <div class="checkout-layout">
+        <div class="checkout-main">
+          <span class="eyebrow">Проверка</span>
+          <h1>Проверьте заказ перед оплатой</h1>
+          <p class="lead">Последний шаг фиксирует товары, адрес, доставку и оплату. Это снижает ошибки перед внешним платежом или оплатой при получении.</p>
+          <div class="checkout-card review-list">
+            <div><span>Аккаунт</span><strong>+7 900 000-00-00 · email@example.ru</strong><a href="#account">Изменить</a></div>
+            <div><span>Получение</span><strong>Москва, доставка курьером завтра</strong><a href="#checkout-delivery">Изменить</a></div>
+            <div><span>Оплата</span><strong>Банковская карта онлайн</strong><a href="#checkout-payment">Изменить</a></div>
+            <div><span>Поддержка</span><strong>Менеджер подтвердит наличие и комплектацию</strong><a href="#contacts">Связаться</a></div>
+          </div>
+          <a class="primary-button" href="#checkout-success">Подтвердить заказ</a>
+        </div>
+        ${orderSummary()}
+      </div>
+    </section>`;
+}
+
+function successPage() {
+  return `
+    <section class="page">
+      <div class="checkout-main success-state">
+        <span class="eyebrow">Заказ создан</span>
+        <h1>Спасибо, заявка принята</h1>
+        <p class="lead">Мы закрепили товары в заявке. Менеджер подтвердит наличие, цену, способ оплаты и время доставки.</p>
+        <div class="checkout-card review-list">
+          <div><span>Номер</span><strong>MRF-2406-1024</strong></div>
+          <div><span>Статус</span><strong>Ожидает подтверждения магазина</strong></div>
+          <div><span>Следующий шаг</span><strong>Звонок или сообщение в течение 15 минут</strong></div>
+        </div>
+        <div class="hero-actions">
+          <a class="primary-button" href="#catalog">Вернуться в каталог</a>
+          <a class="ghost-button" href="#service-warranty">Условия гарантии</a>
+        </div>
       </div>
     </section>`;
 }
@@ -632,6 +882,15 @@ function bindEvents() {
         "Спасибо! Мы получили заявку и скоро свяжемся с вами для подтверждения заказа.";
     });
   }
+
+  const accountForm = document.querySelector("#accountForm");
+  if (accountForm) {
+    accountForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      document.querySelector("#accountResult").textContent =
+        "Аккаунт готов для продолжения оформления.";
+    });
+  }
 }
 
 function render() {
@@ -641,6 +900,12 @@ function render() {
 
   if (hash === "home") html = homePage();
   else if (hash === "catalog") html = catalogPage();
+  else if (hash === "account") html = accountPage();
+  else if (hash === "bag") html = bagPage();
+  else if (hash === "checkout-delivery") html = deliveryPage();
+  else if (hash === "checkout-payment") html = paymentPage();
+  else if (hash === "checkout-review") html = reviewPage();
+  else if (hash === "checkout-success") html = successPage();
   else if (hash === "compare") html = comparePage();
   else if (hash === "contacts") html = contactsPage();
   else if (hash.startsWith("product-")) html = productPage(hash.replace("product-", ""));
