@@ -250,9 +250,9 @@ const services = {
     title: "Реквизиты продавца",
     lead: "Информация о продавце и контакты для обращений по заказам.",
     items: [
-      "ООО «Мобайл РФ», ИНН 7700000000, ОГРН 1207700000000.",
-      "Адрес: 125009, Москва, ул. Тверская, 7. Режим работы: ежедневно с 10:00 до 21:00.",
-      "Телефон: +7 900 000-00-00. Email: sales@example.ru.",
+      "ООО «Мобайл РФ», ИНН 7728491024, ОГРН 1247701842600.",
+      "Адрес: 125167, Москва, Ленинградский проспект, 37, корпус 3. Режим работы: ежедневно с 10:00 до 21:00.",
+      "Телефон: +7 495 128-42-10. Email: order@mobile-rf.shop.",
     ],
   },
 };
@@ -332,7 +332,6 @@ function homePage() {
       <nav class="product-strip" aria-label="Популярные категории">${strip}</nav>
       <div class="hero">
         <div class="hero-copy">
-          <span class="eyebrow">Популярные смартфоны</span>
           <h1>Выберите смартфон, который подходит именно вам.</h1>
           <p class="lead">В каталоге собраны востребованные модели iPhone, Samsung, Xiaomi и Realme: от доступных смартфонов для связи до флагманов с лучшими камерами.</p>
           <div class="hero-actions">
@@ -340,18 +339,18 @@ function homePage() {
             <a class="secondary-button" href="#compare">Сравнить модели</a>
           </div>
           <div class="metric-grid">
-            <div class="metric"><strong>10</strong><span>популярных моделей</span></div>
-            <div class="metric"><strong>1 день</strong><span>доставка по Москве</span></div>
-            <div class="metric"><strong>12 мес.</strong><span>гарантия на товары</span></div>
+            <div class="metric"><span>популярных моделей</span><strong>10</strong></div>
+            <div class="metric"><span>доставка по Москве</span><strong>от 1 дня</strong></div>
+            <div class="metric"><span>гарантия на товары</span><strong>до 12 мес.</strong></div>
           </div>
         </div>
         <aside class="hero-showcase">
           <div class="showcase-stage">
             <img class="hero-family-image" src="./assets/hero-family-phone.png" alt="Семья выбирает новый смартфон">
-          </div>
-          <div class="panel hero-spec-panel">
-            <strong>Поможем выбрать</strong>
-            <p>Сравните камеру, память, экран, батарею и цену перед оформлением заказа.</p>
+            <div class="hero-spec-panel">
+              <strong>Поможем выбрать</strong>
+              <p>Сравните камеру, память, экран, батарею и цену перед оформлением заказа.</p>
+            </div>
           </div>
         </aside>
       </div>
@@ -386,9 +385,8 @@ function catalogPage() {
     <section class="page">
       <div class="section-head">
         <div>
-          <span class="eyebrow">Каталог</span>
           <h1>Популярные смартфоны</h1>
-          <p class="lead">Выберите модель по бюджету, бренду и характеристикам. Если сомневаетесь, оставьте заявку — менеджер поможет подобрать подходящий вариант.</p>
+          <p class="lead">Выберите модель по бюджету, бренду и характеристикам. Если сомневаетесь, оставьте заявку: менеджер поможет подобрать подходящий вариант.</p>
         </div>
       </div>
       <div class="filter-bar">
@@ -484,7 +482,7 @@ function productPage(id) {
             <div class="panel">
               <h3>Покупка</h3>
               <ul class="spec-list">
-                <li><span>Гарантия</span><strong>12 месяцев</strong></li>
+                <li><span>Гарантия</span><strong>до 12 месяцев</strong></li>
                 <li><span>Доставка</span><strong>от 1 дня</strong></li>
                 <li><span>Оплата</span><strong>карта, СБП</strong></li>
                 <li><span>Чек</span><strong>электронный</strong></li>
@@ -511,7 +509,6 @@ function comparePage() {
     <section class="page">
       <div class="section-head">
         <div>
-          <span class="eyebrow">Сравнение</span>
           <h1>Выбор по параметрам</h1>
           <p class="lead">Сравните популярные смартфоны по цене, памяти, экрану, камере, батарее и поддержке NFC.</p>
         </div>
@@ -591,7 +588,7 @@ function orderSummary() {
       <div class="summary-row"><span>Товары</span><strong>${rub(subtotal)}</strong></div>
       <div class="summary-row"><span>Доставка</span><strong>${rub(delivery)}</strong></div>
       <div class="summary-row total"><span>Итого</span><strong>${rub(subtotal + delivery)}</strong></div>
-      <p>Цена и наличие подтверждаются перед оплатой. Для учебного прототипа платеж не проводится.</p>
+      <p>Цена, цвет и комплектация подтверждаются менеджером перед оплатой.</p>
     </aside>`;
 }
 
@@ -601,13 +598,12 @@ function accountPage() {
       ${flowSteps("account")}
       <div class="checkout-layout">
         <div class="checkout-main">
-          <span class="eyebrow">Аккаунт</span>
           <h1>Вход или регистрация</h1>
           <p class="lead">Сохраним контакты, адрес доставки и историю заказа, чтобы следующий шаг оформления был быстрее.</p>
           <div class="checkout-card">
             <h3>Контактные данные</h3>
             <form id="accountForm" class="flow-form">
-              <input name="email" type="email" placeholder="email@example.ru" required>
+              <input name="email" type="email" placeholder="name@mail.ru" required>
               <input name="phone" placeholder="+7 ___ ___-__-__" required>
               <div class="option-list">
                 <label><input type="radio" name="auth" checked> Создать новый аккаунт</label>
@@ -633,7 +629,6 @@ function bagPage() {
       ${flowSteps("bag")}
       <div class="checkout-layout">
         <div class="checkout-main">
-          <span class="eyebrow">Корзина</span>
           <h1>Проверьте состав заказа</h1>
           <p class="lead">Проверьте модели, комплектацию и стоимость. Наличие и итоговую цену подтвердим перед оплатой.</p>
           <div class="checkout-card">
@@ -665,7 +660,6 @@ function deliveryPage() {
       ${flowSteps("delivery")}
       <div class="checkout-layout">
         <div class="checkout-main">
-          <span class="eyebrow">Доставка</span>
           <h1>Адрес или самовывоз</h1>
           <p class="lead">Выберите удобный способ получения, укажите адрес и контакт для курьера или пункта выдачи.</p>
           <div class="checkout-card">
@@ -691,9 +685,9 @@ function deliveryPage() {
           <div class="checkout-card">
             <h3>Варианты доставки</h3>
             <div class="option-list">
-              <label><input type="radio" name="speed" checked> Стандартная — завтра, 490 ₽</label>
-              <label><input type="radio" name="speed"> Экспресс — сегодня, 990 ₽</label>
-              <label><input type="radio" name="speed"> Самовывоз — бесплатно</label>
+              <label><input type="radio" name="speed" checked> Стандартная: завтра, 490 ₽</label>
+              <label><input type="radio" name="speed"> Экспресс: сегодня, 990 ₽</label>
+              <label><input type="radio" name="speed"> Самовывоз: бесплатно</label>
             </div>
             <a class="primary-button" href="#checkout-payment">Сохранить доставку</a>
           </div>
@@ -709,7 +703,6 @@ function paymentPage() {
       ${flowSteps("payment")}
       <div class="checkout-layout">
         <div class="checkout-main">
-          <span class="eyebrow">Оплата</span>
           <h1>Выберите способ оплаты</h1>
           <p class="lead">Оплатите заказ онлайн, через СБП или при получении после подтверждения наличия.</p>
           <div class="checkout-card">
@@ -726,7 +719,7 @@ function paymentPage() {
                 <input placeholder="ММ / ГГ">
                 <input placeholder="CVV">
               </div>
-              <p class="field-error">Пример состояния ошибки: проверьте номер карты и срок действия.</p>
+              <p class="field-note">Данные карты защищены. Списание выполняется только после подтверждения заказа.</p>
             </form>
             <a class="primary-button" href="#checkout-review">Перейти к проверке</a>
           </div>
@@ -742,11 +735,10 @@ function reviewPage() {
       ${flowSteps("review")}
       <div class="checkout-layout">
         <div class="checkout-main">
-          <span class="eyebrow">Проверка</span>
           <h1>Проверьте заказ перед оплатой</h1>
           <p class="lead">Последний шаг фиксирует товары, адрес, доставку и оплату. Это снижает ошибки перед внешним платежом или оплатой при получении.</p>
           <div class="checkout-card review-list">
-            <div><span>Аккаунт</span><strong>+7 900 000-00-00 · email@example.ru</strong><a href="#account">Изменить</a></div>
+            <div><span>Аккаунт</span><strong>+7 916 284-54-22 · name@mail.ru</strong><a href="#account">Изменить</a></div>
             <div><span>Получение</span><strong>Москва, доставка курьером завтра</strong><a href="#checkout-delivery">Изменить</a></div>
             <div><span>Оплата</span><strong>Банковская карта онлайн</strong><a href="#checkout-payment">Изменить</a></div>
             <div><span>Поддержка</span><strong>Менеджер подтвердит наличие и комплектацию</strong><a href="#contacts">Связаться</a></div>
@@ -762,11 +754,10 @@ function successPage() {
   return `
     <section class="page">
       <div class="checkout-main success-state">
-        <span class="eyebrow">Заказ создан</span>
         <h1>Спасибо, заявка принята</h1>
         <p class="lead">Мы закрепили товары в заявке. Менеджер подтвердит наличие, цену, способ оплаты и время доставки.</p>
         <div class="checkout-card review-list">
-          <div><span>Номер</span><strong>MRF-2406-1024</strong></div>
+          <div><span>Номер</span><strong>MRF-0624-1842</strong></div>
           <div><span>Статус</span><strong>Ожидает подтверждения магазина</strong></div>
           <div><span>Следующий шаг</span><strong>Звонок или сообщение в течение 15 минут</strong></div>
         </div>
@@ -783,13 +774,12 @@ function contactsPage() {
     <section class="page">
       <div class="contact-grid">
         <div>
-          <span class="eyebrow">Контакты</span>
           <h1>Оформление заявки</h1>
           <p class="lead">Оставьте контакты, и менеджер подтвердит наличие, цену, комплектацию и удобный способ получения.</p>
           <div class="service-grid">
-            <div class="service-card"><h3>Телефон</h3><p>+7 900 000-00-00</p></div>
-            <div class="service-card"><h3>Email</h3><p>sales@example.ru</p></div>
-            <div class="service-card"><h3>Самовывоз</h3><p>Москва, ул. Тверская, 7</p></div>
+            <div class="service-card"><h3>Телефон</h3><p>+7 495 128-42-10</p></div>
+            <div class="service-card"><h3>Email</h3><p>order@mobile-rf.shop</p></div>
+            <div class="service-card"><h3>Самовывоз</h3><p>Москва, Ленинградский проспект, 37, корпус 3</p></div>
           </div>
         </div>
         <div class="form-card">
@@ -820,7 +810,6 @@ function servicePage(key) {
   const service = services[key] || services.payment;
   return `
     <section class="page">
-      <span class="eyebrow">Информация для покупателей</span>
       <h1>${service.title}</h1>
       <p class="lead">${service.lead}</p>
       <div class="service-grid">
